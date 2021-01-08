@@ -21,6 +21,7 @@ public class CallAdmin implements CommandExecutor {
                 StringBuilder sb = new StringBuilder();
                 sb.append("Message: " + String.join(" ", args));
                 sb.append("\nSender: " + sender.getName());
+                sb.append("\nStatus: Open");
                 final EmbedBuilder builder = new EmbedBuilder()
                         .setTitle("Admin Call")
                         .setDescription(sb.toString())

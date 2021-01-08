@@ -26,10 +26,6 @@ public class MyPlugin extends JavaPlugin {
         DiscordSRV.api.subscribe(discordsrvListener);
         DiscordSRV.api.requireIntent(GatewayIntent.GUILD_MESSAGES);
         DiscordSRV.api.requireIntent(GatewayIntent.GUILD_MESSAGE_REACTIONS);
-        DiscordSRV.api.requireIntent(GatewayIntent.GUILD_EMOJIS);
-        DiscordSRV.api.requireIntent(GatewayIntent.GUILD_MEMBERS);
-        DiscordSRV.api.requireIntent(GatewayIntent.GUILD_PRESENCES);
-        DiscordSRV.api.requireIntent(GatewayIntent.GUILD_WEBHOOKS);
         createCustomFile();
         this.getConfig().options().copyDefaults();
         saveDefaultConfig();
