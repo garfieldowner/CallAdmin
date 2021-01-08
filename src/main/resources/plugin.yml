@@ -1,0 +1,11 @@
+name: CallAdmin
+version: 1.0-SNAPSHOT
+main: com.hayesdev.MyPlugin
+api-version: 1.16
+authors: [ HayesDev ]
+description: A plugin for the EndlessPVP server
+depend: [DiscordSRV]
+commands:
+  calladmin:
+    aliases:
+    description: Used for calling an admin
