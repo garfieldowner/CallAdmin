@@ -1,10 +1,10 @@
 package com.hayesdev.listeners;
 
 import com.hayesdev.MyPlugin;
+import github.scarsz.discordsrv.DiscordSRV;
 import github.scarsz.discordsrv.dependencies.jda.api.EmbedBuilder;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.Message;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.MessageReaction;
-import github.scarsz.discordsrv.dependencies.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import github.scarsz.discordsrv.dependencies.jda.api.events.message.react.MessageReactionAddEvent;
 import github.scarsz.discordsrv.dependencies.jda.api.hooks.ListenerAdapter;
 import org.bukkit.Bukkit;
@@ -24,12 +24,16 @@ public class JDAListener extends ListenerAdapter {
     @Override
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
         System.out.println("LOLLLOL");
-        Message message = event.getChannel().getHistory().getMessageById(event.getMessageId());
-        if (event.getChannel().getId().equals("" + MyPlugin.getInstance().getConfigFile().getInt("admin-channel"))) {
+        String messageID = event.getMessageId();
+        Message message = event.getChannel().getHistory().getMessageById(messageID);
+        if (event.getChannel().getId().equals("" + MyPlugin.getInstance().getConfigFile().getString("admin-channel")) && message != null) {
+            System.out.println("LOLLLOL2");
             for (MessageReaction currentReaction : message.getReactions()) {
                 if (currentReaction.getReactionEmote().getAsCodepoints().equalsIgnoreCase("U+2705") && currentReaction.getCount() > 1) {
+                    System.out.println("LOLLLOL3");
                     String description = message.getEmbeds().get(0).getDescription();
                     if (description != null) {
+                        System.out.println("LOLLLOL4");
                         message.clearReactions().queue();
                         final EmbedBuilder builder = new EmbedBuilder()
                                 .setTitle("Admin Call")

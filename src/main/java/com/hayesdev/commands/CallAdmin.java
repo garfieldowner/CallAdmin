@@ -25,7 +25,7 @@ public class CallAdmin implements CommandExecutor {
                         .setTitle("Admin Call")
                         .setDescription(sb.toString())
                         .setColor(new Color(5154580));
-                TextChannel tc = DiscordSRV.getPlugin().getJda().getTextChannelById(MyPlugin.getInstance().getConfig().getLong("admin-channel"));
+                TextChannel tc = DiscordSRV.getPlugin().getJda().getTextChannelById(MyPlugin.getInstance().getConfig().getString("admin-channel"));
                 if (tc != null) {
                     tc.sendMessage(builder.build()).queue(message -> message.addReaction("U+2705").queue());
                     return true;

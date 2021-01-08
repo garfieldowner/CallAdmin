@@ -3,6 +3,7 @@ package com.hayesdev;
 import com.hayesdev.commands.CallAdmin;
 import com.hayesdev.listeners.DiscordSRVListener;
 import github.scarsz.discordsrv.DiscordSRV;
+import github.scarsz.discordsrv.dependencies.jda.api.requests.GatewayIntent;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -23,13 +24,19 @@ public class MyPlugin extends JavaPlugin {
         myPlugin = this;
         discordsrvListener = new DiscordSRVListener(myPlugin);
         DiscordSRV.api.subscribe(discordsrvListener);
+        DiscordSRV.api.requireIntent(GatewayIntent.GUILD_MESSAGES);
+        DiscordSRV.api.requireIntent(GatewayIntent.GUILD_MESSAGE_REACTIONS);
+        DiscordSRV.api.requireIntent(GatewayIntent.GUILD_EMOJIS);
+        DiscordSRV.api.requireIntent(GatewayIntent.GUILD_MEMBERS);
+        DiscordSRV.api.requireIntent(GatewayIntent.GUILD_PRESENCES);
+        DiscordSRV.api.requireIntent(GatewayIntent.GUILD_WEBHOOKS);
         createCustomFile();
         this.getConfig().options().copyDefaults();
         saveDefaultConfig();
         if (configFile != null) {
             if (!(configFile.contains("admin-channel"))) {
                 configFile.createSection("admin-channel");
-                configFile.set("admin-channel", 0);
+                configFile.set("admin-channel", "0");
             }
         }
         try {
@@ -39,7 +46,7 @@ public class MyPlugin extends JavaPlugin {
         }
         this.getCommand("calladmin").setExecutor(new CallAdmin());
         System.out.println("[CallAdmin] Enabled!");
-        if (configFile.getInt("admin-channel") == 0) {
+        if (configFile.getString("admin-channel").equals("0")) {
             System.out.println("[CallAdmin] No channel path set in config!");
             getServer().getPluginManager().disablePlugin(this);
         }
